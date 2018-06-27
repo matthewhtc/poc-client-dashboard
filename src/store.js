@@ -10,15 +10,19 @@ export default new Vuex.Store({
   },
   mutations: {
     CREATE_DATA: (state, link) => {
-      for (var i = 0; i < 15; i++) {
-        let data = {}; 
-        data.firstName = Vue.faker().name.firstName(); 
-        data.lastName = Vue.faker().name.lastName(); 
-        data.phone = Vue.faker().phone.phoneNumberFormat(); 
-        data.email = Vue.faker().internet.email(); 
-        data.dateCreated = Vue.faker().date.past();  
-        data.product = state.products[ Math.floor((Math.random() * (state.products.length - 1))) ]; 
-        state.mockData.push(data);  
+      console.log(state.mockData.length); 
+      if (!state.mockData.length) {
+        for (var i = 0; i < 5; i++) {
+          let data = {}; 
+          data.id = i; 
+          data.firstName = Vue.faker().name.firstName(); 
+          data.lastName = Vue.faker().name.lastName(); 
+          data.phone = Vue.faker().phone.phoneNumberFormat(); 
+          data.email = Vue.faker().internet.email(); 
+          data.dateCreated = Vue.faker().date.past();  
+          data.product = state.products[ Math.floor((Math.random() * (state.products.length - 1))) ]; 
+          state.mockData.push(data);  
+        }
       }
     }
   },

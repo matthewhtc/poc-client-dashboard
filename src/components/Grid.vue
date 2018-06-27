@@ -4,34 +4,63 @@
       <p class='title'>Grid</p>
 
       <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+        <div class="table__wrapper">
+        <table class="table">
+          <thead>
+            <th></th>
+            <th>Product</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Date</th>
+          </thead>
+          <tbody v-for="row in mockData">
+            <td>{{ row.id }}</td>
+            <td>{{ row.product }}</td>
+            <td>{{ row.firstName }} {{ row.lastName }}</td>
+            <td>{{ row.phone }}</td>
+            <td>{{ row.email }}</td>
+            <td>{{ row.dateCreated | moment("MMMM Do")}}, {{ row.dateCreated | moment("YYYY")}}</td>
+          </tbody>
+        </table>
         </div>
+      </div>
     </article>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'; 
+import { mapState, mapMutations } from 'vuex'; 
 export default {
   name: 'grid',
+  data: function() {
+    return {
+      product: [], 
+      name: [], 
+      phone: [], 
+      email: [], 
+      date: []
+    }
+  },
   props: {
-    msg: String
+    
   }, 
+  computed: {
+    ...mapState(['mockData'])
+  },
   methods: {
     ...mapMutations(["CREATE_DATA"]),
-    ...mapActions([
-      
-    ]), 
-   
   }, 
   created: function() {
-  
     this.CREATE_DATA(); 
+    // console.log(this.$moment); 
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
+.table__wrapper {
+  overflow-x: auto;
+}
 </style>
